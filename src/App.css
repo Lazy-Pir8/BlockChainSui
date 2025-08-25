@@ -351,3 +351,34 @@ button {
   border-color: var(--accent2);
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent2) 25%, transparent);
 }
+
+/* === Theme Selector Styling === */
+.theme-select {
+  border: 2px solid var(--border, #ccc);
+  background: var(--card, #fff);
+  color: var(--text, #222);
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 12px;
+  appearance: none; /* remove default arrow */
+  background-image: linear-gradient(to bottom, var(--card, #fff), var(--card, #f8f8f8)),
+    url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat;
+  background-position: right 10px center, 0 0;
+  background-size: 14px, 100%;
+}
+
+.theme-select:hover {
+  border-color: var(--accent1, #4f8cff);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.08);
+}
+
+.theme-select:focus {
+  outline: none;
+  border-color: var(--accent2, #ff6ec7);
+  box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.25);
+}
