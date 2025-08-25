@@ -1,142 +1,260 @@
-/* loyaltycard.css */
-
-/* 1. Dark Mode Variables */
+/* ===== Base / Theme ===== */
 :root {
-  --bg-color: #121212;
-  --card-bg: rgba(255, 255, 255, 0.05);
-  --text-color: #e0e0e0;
-  --accent-color: #ff6f61;
-  --input-bg: rgba(255, 255, 255, 0.10);
-  --shadow-color: rgba(0, 0, 0, 0.7);
+  --bg: #f5f7fb;
+  --text: #101217;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --accent1: #4f8cff;
+  --accent2: #6a5cff;
+  --border: #e5e7eb;
+  --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    /* Optional: override for light mode */
-    --bg-color: #f5f5f5;
-    --card-bg: rgba(255, 255, 255, 0.8);
-    --text-color: #333333;
-    --accent-color: #0077cc;
-    --input-bg: rgba(0, 0, 0, 0.05);
-    --shadow-color: rgba(0, 0, 0, 0.15);
-  }
+body.theme-dark {
+  --bg: #0f1116;
+  --text: #e5e7eb;
+  --card: #171923;
+  --muted: #9aa3b2;
+  --accent1: #7aa2ff;
+  --accent2: #8f7aff;
+  --border: #262a36;
+  --shadow: 0 12px 32px rgba(0,0,0,0.45);
 }
 
-/* 2. Global Reset & Base Styles */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-}
-
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
 body {
-  background: var(--bg-color);
-  color: var(--text-color);
-  line-height: 1.6;
-  min-height: 100vh;
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background .25s ease, color .25s ease;
+}
+
+/* ===== Layout ===== */
+.app-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+
+.header {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2rem;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-/* 3. Container & Typography */
-.container {
-  width: 100%;
-  max-width: 480px;
-  backdrop-filter: blur(12px);
-  background: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px var(--shadow-color);
-  padding: 2rem;
+.header h1 {
+  font-size: 1.35rem;
+  margin: 0;
+  letter-spacing: 0.2px;
 }
 
-h1, h2 {
-  margin-bottom: 1rem;
-  letter-spacing: 0.5px;
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-h1 {
-  font-size: 2rem;
-  text-align: center;
-}
-
-h2 {
-  font-size: 1.25rem;
-  margin-top: 1.5rem;
-}
-
-/* 4. Forms & Inputs */
-.form-section {
-  margin-top: 1.5rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: 500;
-}
-
-input[type="text"],
-input[type="number"],
-textarea,
-select {
-  width: 100%;
-  background: var(--input-bg);
-  color: var(--text-color);
-  border: none;
-  border-radius: 6px;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--accent-color);
-  transform: translateY(-2px);
-}
-
-/* 5. Buttons */
-button {
-  display: block;
-  width: 100%;
-  background: var(--accent-color);
-  color: #fff;
-  font-weight: 600;
-  text-transform: uppercase;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 6px;
+.toggle-theme {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 4px 12px var(--shadow-color);
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+/* ===== Card + Inputs ===== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
 }
 
-button:not(:disabled):hover {
-  background: lighten(var(--accent-color), 10%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px var(--shadow-color);
+.section-title {
+  margin: 0 0 10px 0;
+  font-size: 1.05rem;
 }
 
-/* 6. Accessibility & Performance */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    transition: none !important;
-  }
+.label {
+  font-weight: 600;
+  font-size: .9rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+input[type="text"] {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 12px 12px;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+input[type="text"]:focus {
+  border-color: var(--accent1);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent1) 20%, transparent);
+}
+
+.copy-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.copy-row input { flex: 1; }
+
+.icon-btn {
+  min-width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--card) 80%, white), var(--card));
+  cursor: pointer;
+}
+
+/* ===== Drop Zone ===== */
+.drop-zone {
+  border: 2px dashed color-mix(in oklab, var(--accent1) 70%, var(--border));
+  border-radius: 14px;
+  padding: 22px;
+  text-align: center;
+  margin: 14px 0;
+  background: color-mix(in oklab, var(--card) 85%, transparent);
+  transition: background .2s ease, border-color .2s ease, transform .15s ease;
+  cursor: pointer;
+}
+
+.drop-zone p { margin: 0; }
+.drop-zone .browse { color: var(--accent1); text-decoration: underline; }
+
+.drop-zone.dragover {
+  background: color-mix(in oklab, var(--accent1) 12%, var(--card));
+  border-color: var(--accent1);
+  transform: scale(1.01);
+}
+
+/* ===== NFT Preview Card ===== */
+.nft-card {
+  margin-top: 14px;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(90deg, var(--accent1), var(--accent2)) border-box;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.nft-media {
+  position: relative;
+  background: #0b0e14;
+  aspect-ratio: 16/9;
+  display: grid;
+  place-items: center;
+}
+
+.nft-media img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
+.nft-meta {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.muted { color: var(--muted); }
+.value { font-weight: 600; }
+
+/* ===== Buttons ===== */
+.primary-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px 14px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  cursor: pointer;
+  transition: transform .12s ease, filter .2s ease, opacity .2s ease;
+}
+
+.primary-btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+.primary-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+/* Hint text */
+.hint {
+  margin-top: 10px;
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+/* ===== Toast (no libs) ===== */
+.toast {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: white;
+  z-index: 1000;
+  box-shadow: var(--shadow);
+  animation: toast-pop .18s ease-out;
+}
+
+.toast.success { background: #16a34a; } /* green */
+.toast.error { background: #dc2626; }   /* red */
+
+@keyframes toast-pop {
+  from { transform: translateY(-6px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* ===== Confetti (no libs) ===== */
+.confetti-container {
+  position: fixed;
+  left: 0; top: 0; width: 100%; height: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.confetti {
+  position: absolute;
+  top: 0;
+  border-radius: 2px;
+  transform-origin: left;
+  animation: fall 1.6s cubic-bezier(.2,.7,.3,1) forwards,
+             spin .9s linear infinite;
+}
+
+@keyframes fall {
+  from { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  to   { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(180deg); }
 }
