@@ -7,6 +7,9 @@ import {
 } from '@mysten/dapp-kit';
 import './App.css';
 
+
+
+
 const LoyaltyCardPage = () => {
   const currentAccount = useCurrentAccount();
   const { mutate: signAndExecute } = useSignAndExecuteTransaction();
@@ -51,6 +54,13 @@ const LoyaltyCardPage = () => {
       showToast('error', 'Copy failed');
     }
   };
+
+  const themes = ['light', 'dark', 'cyberpunk', 'forest', 'ocean'];
+const [theme, setTheme] = useState('light');
+
+useEffect(() => {
+  document.body.className = `theme-${theme}`;
+}, [theme]);
 
   const shorten = (addr) => (addr ? `${addr.slice(0, 6)}...${addr.slice(-4)}` : '');
 
@@ -163,7 +173,7 @@ const LoyaltyCardPage = () => {
       )}
 
       <header className="header">
-        <h1>Mint Your NFT On SUI</h1>
+        <h1>Sui Loyalty NFT Minter</h1>
         <div className="header-actions">
           <ConnectButton />
           <button
@@ -176,6 +186,18 @@ const LoyaltyCardPage = () => {
             {darkMode ? '☀️' : '🌙'}
           </button>
         </div>
+        <select
+  className="theme-select"
+  value={theme}
+  onChange={(e) => setTheme(e.target.value)}
+>
+  {themes.map((t) => (
+    <option key={t} value={t}>
+      {t.charAt(0).toUpperCase() + t.slice(1)}
+    </option>
+  ))}
+</select>
+
       </header>
 
       <div className="card">
@@ -299,5 +321,8 @@ const LoyaltyCardPage = () => {
     </div>
   );
 };
+
+
+
 
 export default LoyaltyCardPage;

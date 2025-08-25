@@ -258,3 +258,96 @@ input[type="text"]:focus {
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(180deg); }
 }
+
+/* ===== THEMES ===== */
+body.theme-light {
+  --bg: #f5f7fb;
+  --text: #101217;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --accent1: #4f8cff;
+  --accent2: #6a5cff;
+  --border: #e5e7eb;
+}
+
+body.theme-dark {
+  --bg: #0f1116;
+  --text: #e5e7eb;
+  --card: #171923;
+  --muted: #9aa3b2;
+  --accent1: #7aa2ff;
+  --accent2: #8f7aff;
+  --border: #262a36;
+}
+
+body.theme-cyberpunk {
+  --bg: #0a0014;
+  --text: #fffcf9;
+  --card: #1a0b2e;
+  --muted: #a77cff;
+  --accent1: #ff00ff;
+  --accent2: #00fff7;
+  --border: #3c1659;
+}
+
+body.theme-forest {
+  --bg: #0e1c14;
+  --text: #e9f5e1;
+  --card: #18281c;
+  --muted: #9cbfa5;
+  --accent1: #2ecc71;
+  --accent2: #27ae60;
+  --border: #265d3a;
+}
+
+body.theme-ocean {
+  --bg: #001d2e;
+  --text: #e0f7ff;
+  --card: #002b40;
+  --muted: #7db6d4;
+  --accent1: #00c3ff;
+  --accent2: #007bff;
+  --border: #004466;
+}
+
+/* Apply variables */
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+button {
+  background: linear-gradient(45deg, var(--accent1), var(--accent2));
+  border: none;
+  color: white;
+}
+
+/* ===== Theme Selector ===== */
+.theme-select {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-select:hover {
+  border-color: var(--accent1);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent1) 20%, transparent);
+}
+
+.theme-select:focus {
+  outline: none;
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent2) 25%, transparent);
+}
