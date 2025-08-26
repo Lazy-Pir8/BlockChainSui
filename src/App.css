@@ -382,3 +382,43 @@ button {
   border-color: var(--accent2, #ff6ec7);
   box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.25);
 }
+
+/* Theme Backgrounds */
+.theme-light::before,
+.theme-dark::before,
+.theme-cyberpunk::before,
+.theme-forest::before,
+.theme-ocean::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;   /* cover ensures it fits full screen */
+  background-position: center; /* center it */
+  background-repeat: no-repeat;
+  opacity: 0.5;  /* 50% transparent */
+  z-index: -1;   /* behind everything */
+}
+
+/* Replace URLS with your actual images */
+.theme-light::before {
+  background-image: url("https://files.123freevectors.com/wp-content/original/157834-abstract-white-background-design.jpg");
+}
+
+.theme-dark::before {
+  background-image: url("https://th.bing.com/th/id/R.d57b71ffd61f4fcd0aaaf70fc99760d5?rik=nb9%2b4hR8c%2flXIw&pid=ImgRaw&r=0");
+}
+
+.theme-cyberpunk::before {
+  background-image: url("https://www.creativefabrica.com/wp-content/uploads/2023/07/18/Cyberpunk-City-Street-Scifi-Wallpaper-Graphics-74865888-1.jpg");
+}
+
+.theme-forest::before {
+  background-image: url("https://www.mystart.com/blog/wp-content/uploads/MyForest_60f06173290292583608699b.jpeg");
+}
+
+.theme-ocean::before {
+  background-image: url("https://images.pexels.com/photos/2604991/pexels-photo-2604991.jpeg?cs=srgb&dl=pexels-chris-munnik-2604991.jpg&fm=jpg");
+}

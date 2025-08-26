@@ -7,9 +7,6 @@ import {
 } from '@mysten/dapp-kit';
 import './App.css';
 
-
-
-
 const LoyaltyCardPage = () => {
   const currentAccount = useCurrentAccount();
   const { mutate: signAndExecute } = useSignAndExecuteTransaction();
@@ -19,7 +16,7 @@ const LoyaltyCardPage = () => {
   const [dragActive, setDragActive] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
 
-  // Toast state (no external libs)
+  // Toast state
   const [toast, setToast] = useState({ visible: false, type: 'success', message: '' });
   const toastTimer = useRef(null);
 
@@ -29,15 +26,28 @@ const LoyaltyCardPage = () => {
     imageUrl: '',
   });
 
-  // Track blob URL to revoke later (prevent memory leaks)
+  // Track blob URL to revoke later
   const lastObjectUrl = useRef(null);
 
+  // 🎨 Themes
+  const themes = ['light', 'dark', 'cyberpunk', 'forest', 'ocean'];
+  const [theme, setTheme] = useState('light');
+
+  // 🎨 Backgrounds (replace URL1, URL2... with your actual image links)
+  const themeBackgrounds = {
+    light: "url('URL1')",
+    dark: "url('URL2')",
+    cyberpunk: "url('https://www.creativefabrica.com/wp-content/uploads/2023/07/18/Cyberpunk-City-Street-Scifi-Wallpaper-Graphics-74865888-1.jpg')",
+    forest: "url('https://www.mystart.com/blog/wp-content/uploads/MyForest_60f06173290292583608699b.jpeg')",
+    ocean: "url('URL5')",
+  };
+
   useEffect(() => {
-    document.body.classList.toggle('theme-dark', darkMode);
+    document.body.className = `theme-${theme}`;
     return () => {
       if (lastObjectUrl.current) URL.revokeObjectURL(lastObjectUrl.current);
     };
-  }, [darkMode]);
+  }, [theme]);
 
   // --- Utilities ---
   const showToast = (type, message, ms = 2500) => {
@@ -55,16 +65,9 @@ const LoyaltyCardPage = () => {
     }
   };
 
-  const themes = ['light', 'dark', 'cyberpunk', 'forest', 'ocean'];
-const [theme, setTheme] = useState('light');
-
-useEffect(() => {
-  document.body.className = `theme-${theme}`;
-}, [theme]);
-
   const shorten = (addr) => (addr ? `${addr.slice(0, 6)}...${addr.slice(-4)}` : '');
 
-  // --- Confetti (no libs) ---
+  // --- Confetti ---
   const burstConfetti = (count = 80) => {
     const container = document.createElement('div');
     container.className = 'confetti-container';
@@ -74,7 +77,7 @@ useEffect(() => {
     for (let i = 0; i < count; i++) {
       const p = document.createElement('span');
       p.className = 'confetti';
-      const size = Math.floor(Math.random() * 8) + 6; // 6–14px
+      const size = Math.floor(Math.random() * 8) + 6;
       const left = Math.random() * innerWidth;
       const hue = Math.floor(Math.random() * 360);
       p.style.left = `${left}px`;
@@ -85,7 +88,6 @@ useEffect(() => {
       p.style.transform = `rotate(${Math.random() * 180}deg)`;
       container.appendChild(p);
     }
-    // Clean up after animation
     setTimeout(() => {
       container.remove();
     }, 1800);
@@ -146,7 +148,7 @@ useEffect(() => {
         target: `${packageId}::loyalty_card::mint_loyalty`,
         arguments: [
           tx.pure.address(mintForm.customerId),
-          tx.pure.string(mintForm.imageUrl), // blob: URLs are local-only. Use IPFS/HTTP for on-chain metadata.
+          tx.pure.string(mintForm.imageUrl),
         ],
       });
 
@@ -165,6 +167,12 @@ useEffect(() => {
 
   return (
     <div className="app-wrap">
+      {/* 🔥 Background image */}
+      <div
+        className="background-image"
+        style={{ backgroundImage: themeBackgrounds[theme] }}
+      ></div>
+
       {/* Toast */}
       {toast.visible && (
         <div className={`toast ${toast.type}`}>
@@ -183,21 +191,20 @@ useEffect(() => {
             aria-label="Toggle theme"
             title="Toggle theme"
           >
-            {darkMode ? '☀️' : '🌙'}
+            {darkMode ? '' : ''}
           </button>
         </div>
         <select
-  className="theme-select"
-  value={theme}
-  onChange={(e) => setTheme(e.target.value)}
->
-  {themes.map((t) => (
-    <option key={t} value={t}>
-      {t.charAt(0).toUpperCase() + t.slice(1)}
-    </option>
-  ))}
-</select>
-
+          className="theme-select"
+          value={theme}
+          onChange={(e) => setTheme(e.target.value)}
+        >
+          {themes.map((t) => (
+            <option key={t} value={t}>
+              {t.charAt(0).toUpperCase() + t.slice(1)}
+            </option>
+          ))}
+        </select>
       </header>
 
       <div className="card">
@@ -321,8 +328,5 @@ useEffect(() => {
     </div>
   );
 };
-
-
-
 
 export default LoyaltyCardPage;
